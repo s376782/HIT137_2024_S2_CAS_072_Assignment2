@@ -18,7 +18,7 @@ print("Result of generated number is:",generated_number)
 
 #Change color of image with gerated_number
 #Read image
-img = Image.open("chapter1.jpg","r")
+img = Image.open("data/chapter1.jpg","r")
 pixel = np.array(img)
 
 
@@ -29,7 +29,7 @@ new_pixel = np.clip(new_pixel, 0, 255)
 
 #Create a new image and save as chapter1output.png
 new_img = Image.fromarray(new_pixel.astype('uint8'))
-new_img.save('chapter1out.png')
+new_img.save("data/chapter1out.png")
 
 # Calculate the sum of all red pixel values
 red_pixel_sum = np.sum(new_pixel[:, :, 0])
