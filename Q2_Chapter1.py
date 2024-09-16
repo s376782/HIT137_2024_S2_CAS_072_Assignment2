@@ -8,7 +8,6 @@ import numpy as np
 
 # #algorithm generates a number (n) from question
 current_time = int(time.time())
-# print(current_time)
 generated_number = (current_time % 100) + 50
 
 if generated_number % 2 == 0:
