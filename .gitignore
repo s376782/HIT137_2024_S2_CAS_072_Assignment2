@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+Q1_Task1_all_text_output.txt
+
 # Distribution / packaging
 .Python
 build/

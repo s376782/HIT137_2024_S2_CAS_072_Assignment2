@@ -5,7 +5,7 @@ import pandas as pd
 alltext = []
 
 #Create list to store all dataset
-dataset = ['CSV1.csv', 'CSV2.csv', 'CSV3.csv','CSV4.csv']
+dataset = ['data/CSV1.csv', 'data/CSV2.csv', 'data/CSV3.csv','data/CSV4.csv']
 
 #Collect all text by a loop through each dataset
 for file in dataset:
