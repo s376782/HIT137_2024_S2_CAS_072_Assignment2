@@ -1,7 +1,5 @@
 # QUESTION 3: 
-# 1. Fixing the error-prone codes.
-# 2. Below is the code that is encrypted using a number. Once you decrypt the below code,
-# 3. it reveals the original code with many errors. Please fix them and explain them using comments (#).
+# it reveals the original code with many errors.
 
 # Function to find decryption key
 def key():
