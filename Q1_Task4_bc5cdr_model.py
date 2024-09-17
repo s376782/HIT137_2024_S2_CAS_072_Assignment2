@@ -43,7 +43,7 @@ class CTokenizer:
         return self.__diseases, self.__drugs
 
 # File path for the large .txt file
-file_path = "Q1_Task1_all_text.txt"
+file_path = "Q1_Task1_all_text_output.txt"
 
 # Process the file and extract diseases and drugs
 x = CTokenizer()

@@ -30,7 +30,7 @@ def count_unique_tokens(file_path, model_name='bert-base-uncased', top_n=30):
     return top_tokens
 
 # Example usage
-file_path = 'Q1_Task1_all_text.txt'
+file_path = 'Q1_Task1_all_text_output.txt'
 top_tokens = count_unique_tokens(file_path)
 print(top_tokens)
 
