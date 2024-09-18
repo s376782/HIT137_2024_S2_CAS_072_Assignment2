@@ -93,46 +93,116 @@ qrs hcqngr_tybony():
 """
 
 # Step 3: Use the key to decrypt the encrypted code
-key_used_for_decryption = 13
+key_used_for_decryption = key()
 decrypted_code = decrypt(encrypted_code, key_used_for_decryption)
 
 # Print the decrypted code
 print("The decrypted code is:")
 print(decrypted_code)
+# The expectation output of decrypted_code:
+'''
+global_variable = 100
+my_dict = {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'}
+
+def process_numbers():
+    global global_variable
+    local_variable = 5
+    numbers = [1, 2, 3, 4, 5]
+
+    while local_variable > 0:
+        if local_variable % 2 == 0:
+            numbers.remove(local_variable)
+        local_variable -= 1
+
+    return numbers
+
+my_set = {1, 2, 3, 4, 5, 5, 4, 3, 2, 1}
+result = process_numbers(numbers=my_set)
+
+def modify_dict():
+    local_variable = 10
+    my_dict['key14'] = local_variable
+
+modify_dict(5)
+
+def update_global():
+    global global_variable
+    global_variable += 10
+
+    for i in range(5):
+        print(i)
+        i += 1
+
+    if my_set is not None and my_dict['key14'] == 10:
+        print("Condition met!")
+
+    if 5 not in my_dict:
+        print("5 not found in the dictionary!")
+
+    print(global_variable)
+    print(my_dict)
+    print(my_set)
+'''
 
 # Step 4: The corrected code after decryption and fixing errors
+# Corrected Code with Comments
 
-# Initialize global variable
+# Initialize a global variable to hold a value
 global_variable = 100
+
+# Dictionary with some keys and values
 my_dict = {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'}
 
 # Function to process a list of numbers
 def process_numbers():
-    global_variable = 5
-    numbers = [1, 2, 3, 4, 5]
-    while global_variable > 0:
-        if global_variable % 2 == 0:
-            numbers.remove(global_variable)
-        global_variable -= 1
-    return numbers
+    global global_variable  # Access global variable
+    local_variable = 5  # Local variable initialized to 5
+    numbers = [1, 2, 3, 4, 5]  # A list of numbers
+
+    # While loop to manipulate the numbers list based on local_variable
+    while local_variable > 0:
+        if local_variable % 2 == 0:  # If local_variable is even
+            numbers.remove(local_variable)  # Remove the number from the list
+        local_variable -= 1  # Decrease the local variable by 1
+
+    return numbers  # Return the processed list of numbers
+
+# Set of numbers (with duplicates removed)
+my_set = {1, 2, 3, 4, 5}
+
+# Get the result after processing the numbers
+result = process_numbers()
 
 # Function to modify the dictionary
 def modify_dict():
-    global_variable = 10
-    my_dict['key4'] = global_variable
-    modify_dict(5)
+    local_variable = 10  # Local variable initialized to 10
+    my_dict['key4'] = local_variable  # Add a new key-value pair to the dictionary
 
-# Function to update the global variable
+# Call the modify_dict function to update the dictionary
+modify_dict()
+
+# Function to update the global variable and perform checks
 def update_global():
-    global global_variable
-    global_variable += 10
+    global global_variable  # Access global variable
+    global_variable += 10  # Increment global variable by 10
+
+    # Loop through numbers from 0 to 4 and print them
     for i in range(5):
         print(i)
-        i += 1
-    if my_list is not None and my_dict['key4'] == 10:
-        print("Condition met!")
+        i += 1  # This increment does not affect the loop, as `for` loop handles it automatically
+
+    # Check if my_set is not None and if a condition in the dictionary is met
+    if my_set is not None and my_dict['key4'] == 10:
+        print("Condition met!")  # Print a message if the condition is true
+
+    # Check if 5 is not in the dictionary keys
     if 5 not in my_dict:
-        print("5 not found in the dictionary!")
+        print("5 not found in the dictionary!")  # Print if 5 is not a key in the dictionary
+
+    # Print the values of global_variable, my_dict, and my_set
     print(global_variable)
     print(my_dict)
-    print(my_list)
+    print(my_set)
+
+# Call the function to update the global variable and print data
+update_global()
