@@ -1,27 +1,29 @@
 #Question 2: Chapter 1 - The Gatekeeper
-#import libraries
-import time
-from PIL import Image
-import numpy as np
-
-
 # #algorithm generates a number (n) from question
-current_time = int(time.time())
-generated_number = (current_time % 100) + 50
+from PIL import Image #import libraries
+import numpy as np #import libraries
+    
+def find_generated_number():
+    import time #import libraries
+    current_time = int(time.time())
+    generated_number = (current_time % 100) + 50
 
-if generated_number % 2 == 0:
-    generated_number += 10
-print("Result of generated number is:",generated_number)
+    if generated_number % 2 == 0:
+        generated_number += 10
+    print("Result of generated number is:", generated_number)
+    return generated_number
 
 #function to change color of image with gerated_number
 #Read image
 def change_color_image(input_image, output_image):
     
+    # Read image and pixel    
     img = Image.open(input_image, "r")
     pixel = np.array(img)
 
+    n = find_generated_number()
     #New pixels with generated_number
-    new_pixel = pixel + generated_number
+    new_pixel = pixel + n
     
     #esure new pixels values are with in [0, 255]
     new_pixel = np.clip(new_pixel, 0, 255)
