@@ -1,41 +1,72 @@
+import warnings
+import concurrent.futures as f    # for parallel processing
+import multiprocessing as mp      # for parallel processing
+import multiprocessing.pool as p
+from collections import Counter
 from transformers import AutoTokenizer
-from collections import Counter       # Count the time appear for the token
 import csv
 
-def count_unique_tokens(file_path, model_name='bert-base-uncased', top_n=30):
-    # Initialize the tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    
-    # Initialize a counter for tokens
-    token_counter = Counter()     # A Counter object to track how many times each token (word or symbol) appears
-    
-    # Read the file in chunks to handle large files
-    with open(file_path, 'r', encoding='utf-8') as file:       # Read file with UTF-8 encoding
-        while True:
-            chunk = file.read(1024 * 1024)  # Read the file in chunks (here is 1MB at a time)
-            if not chunk:      
-                break              # If there's no more text to read (end of the file), the loop breaks
+# Ignore the warning that might arise from using older versions of libraries 
+# Here we use the Python version to ver 3.10 for this assignment in order to install spispaCy library 
+warnings.filterwarnings("ignore", category=FutureWarning)   
 
-            # Tokenize the read chunk 
-            tokens = tokenizer.tokenize(chunk)   # Use tokenize in AutoTokenizer to change the chunk into tokens (words and sub-words, (special) characters).                           
+class CTokenizer:
+    def __init__(self, model_name='bert-base-uncased'):    # Split text into tokens following BERT's tokenization rules.
+        self.__tokenizer = AutoTokenizer.from_pretrained(model_name)    
 
-            # Split tokens into smaller chunks to avoid exceeding the max sequence length, maximum length for BERT is 512 tokens
-            max_length = 512
-            for i in range(0, len(tokens), max_length):      # i runs from 0 to len(tokens) with the step of 512
-                token_chunk = tokens[i : i+max_length]
-                token_counter.update(token_chunk)
-    
-    # Get the top N most common tokens
-    top_tokens = token_counter.most_common(top_n)    
-    return top_tokens
+    def __process_chunk(self, chunk):
+        # Process the chunk
+        self.__chunk_counter += 1
+        print(f"Processing chunk {self.__chunk_counter}...")
 
-# Example usage
-file_path = 'Q1_Task1_all_text_output.txt'
-top_tokens = count_unique_tokens(file_path)
-print(top_tokens)
+        tokens = self.__tokenizer.tokenize(chunk)
+            
+        # Update the token counter
+        self.__token_counts.update(tokens)
 
-if top_tokens:
-    with open('Q1_Task3.2_Top_30_common_words.csv','w',encoding='utf-8') as result:
-        top30_file = csv.writer(result) #Write data into CSV file
-        top30_file.writerow(['Common word', 'Count frequency']) #Write name of the header
-        top30_file.writerows(top_tokens) #Add value of top 30 common words in rows of csv file
+        # Update the total tokens processed
+        self.__total_tokens_processed += len(tokens)
+        print(f"Chunk {self.__chunk_counter} processed. Total tokens processed: {self.__total_tokens_processed}")
+
+        return True
+
+    def process(self, file_path):
+        # Initialize a counter for token frequencies
+        self.__token_counts = Counter()
+
+        # Initialize variables to track progress
+        self.__chunk_counter = 0
+        self.__total_tokens_processed = 0
+
+        with p.ThreadPool(mp.cpu_count()) as pool:    # process text chunks concurrently to speed up the processing.
+            with open(file_path, 'r') as file:
+                while True:
+                    chunk = file.read(1024*1024)    # Read chunk with size of 1024*1024 (1MB)
+                    if not chunk:
+                        break
+                    pool.apply_async(self.__process_chunk, args=(chunk,))
+
+            pool.close()
+            pool.join()
+
+        # Get the top 30 most common tokens
+        top_30 = self.__token_counts.most_common(30)
+        return top_30
+
+# File path for the large .txt file
+file_path = "Q1_Task1_all_text_output.txt"
+
+# Process the file and extract diseases and drugs
+x = CTokenizer()
+top_30 = x.process(file_path)
+
+#Store result of top 30 common words in csv file: Q1_Task3.2_Top_30_common_words.csv
+with open('Q1_Task3.2_Top_30_common_words_AutoTokenizer.csv','w',encoding='utf-8') as result:
+    top30_file = csv.writer(result) #Write data into CSV file
+    top30_file.writerow(['Common word', 'Count frequency']) #Write name of the header
+    top30_file.writerows(top_30) #Add value of top 30 common words in rows of csv file
+
+# Print the results
+print("Top 30 tokens and their counts:")
+for token, count in top_30:
+    print(f"Token: {token}, Count: {count}")
