@@ -1,5 +1,5 @@
-# QUESTION 3: 
-# it reveals the original code with many errors.
+
+# 3.2 it reveals the original code with many errors.
 
 # Function to find decryption key
 def key():
