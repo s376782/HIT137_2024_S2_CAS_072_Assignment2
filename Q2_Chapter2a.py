@@ -1,8 +1,9 @@
 def process_string(s):
+    # Check if the string length is at least 16 characters
     if len(s) < 16:
         raise ValueError("The string must be at least 16 characters long.")
 
-    # Separate the string into numbers and letters
+    # Separate the string into numbers and letters, ignoring special characters
     number_string = ''.join([char for char in s if char.isdigit()])
     letter_string = ''.join([char for char in s if char.isalpha()])
 

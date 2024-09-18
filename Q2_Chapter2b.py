@@ -1,3 +1,4 @@
+# List of 200 common English words to check against the decrypted text
 COMMON_ENGLISH_WORDS = [
     "THE", "BE", "AND", "OF", "A", "IN", "TO", "HAVE", "IT", "I", "THAT", "FOR", "YOU", "HE", "WITH",
     "ON", "DO", "SAY", "THIS", "THEY", "AT", "BUT", "WE", "HIS", "FROM", "NOT", "BY", "SHE", "OR",
@@ -20,45 +21,58 @@ COMMON_ENGLISH_WORDS = [
     "HOME", "UNDER", "WATER", "ROOM", "WRITE", "MOTHER", "AREA", "NATIONAL", "MONEY", "STORY", "YOUNG"
 ]
 
-def decrypt_caesar_cipher(ciphertext, shift):
-    decrypted_text = ''
+# Function to decrypt the cipher using a given shift value
+def decrypt_cipher(ciphertext, shift):
+    decrypted_text = '' # Holds the decrypted message
     for char in ciphertext:
         if char.isalpha():  # Only shift alphabetic characters
+            # Convert the character to uppercase, apply the shift, and wrap around using modulo
             shifted_char = chr((ord(char.upper()) - ord('A') - shift) % 26 + ord('A'))
             decrypted_text += shifted_char
         else:
-            decrypted_text += char  # Non-alphabet characters remain the same
+            # Non-alphabet characters (like spaces, punctuation) are added unchanged
+            decrypted_text += char
     return decrypted_text
 
+# Function to count the number of valid English words in a given decrypted text
 def count_english_words(text, english_words):
-    words_in_text = text.split()
-    count = 0
+    words_in_text = text.split() # Split the text into individual words
+    count = 0 # Holds the number of valid words found
     for word in words_in_text:
+        # Trim spaces from each word and convert it to uppercase for matching
         word = word.strip().upper()
+        # Check if the word is in the list of common English words
         if word in english_words:
             count += 1
     return count
 
+# Function to find the best shift value that results in the most valid English words
 def find_best_shift(ciphertext):
-    best_shift = 0
-    max_word_count = 0
-    best_decryption = ""
+    best_shift = 0 # Holds the shift value that results in the most valid words
+    max_word_count = 0 # Tracks the maximum number of valid words found
+    best_decryption = "" # Holds the decrypted message corresponding to the best shift
 
+    # Try all possible shift values (1 through 25) and decrypt the message for each
     for s in range(1, 26):
-        decrypted_text = decrypt_caesar_cipher(ciphertext, s)
-        word_count = count_english_words(decrypted_text, COMMON_ENGLISH_WORDS)
+        decrypted_text = decrypt_cipher(ciphertext, s) # Decrypt with the current shift
+        word_count = count_english_words(decrypted_text, COMMON_ENGLISH_WORDS) # Count valid words
         
+        # If this shift produces more valid words than the previous best, update the best shift
         if word_count > max_word_count:
             max_word_count = word_count
             best_shift = s
             best_decryption = decrypted_text
 
-    return best_shift, best_decryption
+    return best_shift, best_decryption # Return the best shift and corresponding decrypted message
 
+# Example ciphered text
 ciphertext = ("VZ FRYSVFU VZCNGVRAG NAQ N YVGGYR VAFRPHER V ZNXR ZVFGNXRF V NZ BHG BS "
               "PBAGEBY NAQNG GVZRF UNEQ GB UNAQYR OHG VS LBH PNAG UNAQYR ZR NG ZL "
               "JBEFG GURA LBH FHER NF URYYQBAG QRFREIR ZR NG ZL ORFG ZNEVYLA ZBAEBR")
 
+# Find the best shift and the decrypted message
 best_shift, best_decryption = find_best_shift(ciphertext)
-print(best_shift)
-print(best_decryption)
+
+# Print the results
+print(f"The best shift value is: {best_shift}")
+print(f"The decrypted message is:\n{best_decryption}")
