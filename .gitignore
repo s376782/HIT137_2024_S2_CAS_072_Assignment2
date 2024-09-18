@@ -6,11 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
-Q1_Task1_all_text_output.txt
-data/CSV1.csv
-data/CSV2.csv
-data/CSV3.csv
-data/CSV4.csv
+# ignore data and output files
+*.txt
+*.csv
 
 # Distribution / packaging
 .Python
