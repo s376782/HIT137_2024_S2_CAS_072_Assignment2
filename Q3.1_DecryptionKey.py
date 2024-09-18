@@ -1,3 +1,4 @@
+# 3.1 Finding decryption key
 # Function to calculate the decryption key
 def key():
     total = 0
