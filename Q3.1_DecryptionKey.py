@@ -1,3 +1,4 @@
+# Link git: https://github.com/s376782/HIT137_2024_S2_CAS_072_Assignment2/blob/main/Q3.1_DecryptionKey.py
 # 3.1 Finding decryption key
 # Function to calculate the decryption key
 def key():

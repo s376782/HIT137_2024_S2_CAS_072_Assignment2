@@ -1,3 +1,4 @@
+# Link git: https://github.com/s376782/HIT137_2024_S2_CAS_072_Assignment2/blob/main/Q2_Chapter2b.py
 # List of 200 common English words to check against the decrypted text
 COMMON_ENGLISH_WORDS = [
     "THE", "BE", "AND", "OF", "A", "IN", "TO", "HAVE", "IT", "I", "THAT", "FOR", "YOU", "HE", "WITH",

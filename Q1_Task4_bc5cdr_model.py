@@ -1,3 +1,4 @@
+# Linh git: https://github.com/s376782/HIT137_2024_S2_CAS_072_Assignment2/blob/main/Q1_Task4_bc5cdr_model.py
 import multiprocessing as mp
 import multiprocessing.pool as p
 import spacy

@@ -1,5 +1,8 @@
 
+# Link git: https://github.com/s376782/HIT137_2024_S2_CAS_072_Assignment2/blob/main/Q3.2_Original_code.py
 # 3.2 it reveals the original code with many errors.
+# QUESTION 3: 
+# it reveals the original code with many errors.
 
 # Function to find decryption key
 def key():

@@ -1,3 +1,4 @@
+#Lịnk git: https://github.com/s376782/HIT137_2024_S2_CAS_072_Assignment2/blob/main/Q2_Chapter2a.py
 def process_string(s):
     # Check if the string length is at least 16 characters
     if len(s) < 16:

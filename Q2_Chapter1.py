@@ -1,3 +1,4 @@
+#Link git: https://github.com/s376782/HIT137_2024_S2_CAS_072_Assignment2/blob/main/Q2_Chapter1.py
 #Question 2: Chapter 1 - The Gatekeeper
 # #algorithm generates a number (n) from question
 from PIL import Image #import libraries
